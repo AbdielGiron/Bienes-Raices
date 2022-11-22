@@ -12,8 +12,9 @@ export class Users {
       })
       .catch(ex=>console.error(ex));
   }
-  public signin(name: string, email:string, password: string){
+  public signUp(name: string, email:string, password: string){
     const currentDate = new Date();
+    email = email.toLowerCase();
     const newUser = {
       name,
       email,
@@ -33,6 +34,7 @@ export class Users {
 
   public async login(email: string, password: string) {
     try {
+      email = email.toLowerCase();
       const user = await this.dao.getUserByEmail(email);
       if(!!!user){
         console.log("LOGIN: NO USER FOUND: ", `${email}`);

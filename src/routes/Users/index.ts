@@ -6,7 +6,7 @@ const users = new Users();
 router.post('/signin', async (req, res)=> {
   try {
     const {name, email, password} = req.body;
-    const result = await users.signin(name, email, password);
+    const result = await users.signUp(name, email, password);
     console.log("SIGNIN:", result);
     res.status(200).json({"msg":"Usuario Creado Correctamente"});
   } catch(ex) {
