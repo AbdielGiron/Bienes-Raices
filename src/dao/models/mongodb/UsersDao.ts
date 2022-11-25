@@ -26,7 +26,6 @@ export class UsersDao extends AbstractDao<IUser>{
       {$addToSet: {roles: role}}
     );
   }
-  changeUserPassword(){}
 
   createUser(user:IUser){
     const {_id, ...newUser} = user;
