@@ -7,9 +7,9 @@ const properties = new Properties();
 router.post('/create', async (req, res) => {
     try {
         const {titulo, precio, descripcion, tipo, area, habitaciones,
-            banios, garage, terraza, direccion} = req.body;
+            banios, garage, terraza, direccion, nombrePropietario} = req.body;
         const result = await properties.createPropertie(titulo, precio, descripcion, tipo,
-            area, habitaciones, banios, garage, terraza, direccion);
+            area, habitaciones, banios, garage, terraza, direccion, nombrePropietario);
         console.log("CREATE:", result);
         res.status(200).json({"msg": "Propiedad creada correctamente"});
     } catch (ex) {

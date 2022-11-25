@@ -13,7 +13,7 @@ export class Properties {
 
     public createPropertie(titulo: string, precio: number, descripcion: string, 
         tipo: string, area: string, habitaciones: number, banios: number, 
-        garage: string, terraza: string, direccion: string ){
+        garage: string, terraza: string, direccion: string, nombrePropietario: string){
             const currentDate = new Date();
             const newPropertie = {
                 titulo,
@@ -29,7 +29,7 @@ export class Properties {
                 garage,
                 terraza,
                 direccion,
-                nombrePropietario: '',
+                nombrePropietario,
                 _id: null
             };
             return this.dao.createPropertie(newPropertie);
