@@ -1,5 +1,7 @@
 import { getConnection } from "@models/mongodb/MongoDBConn";
 import { PropertiesDao } from "@server/dao/models/mongodb/PropertiesDao";
+import { ObjectId } from "mongodb";
+
 
 export class Properties {
     private dao : PropertiesDao;
@@ -13,7 +15,7 @@ export class Properties {
 
     public createPropertie(titulo: string, precio: number, descripcion: string, 
         tipo: string, area: string, habitaciones: number, banios: number, 
-        garage: string, terraza: string, direccion: string, nombrePropietario: string){
+        garage: string, terraza: string, direccion: string, nombreCompleto: string, email:string,idPropietario:ObjectId){
             const currentDate = new Date();
             const newPropertie = {
                 titulo,
@@ -29,9 +31,36 @@ export class Properties {
                 garage,
                 terraza,
                 direccion,
-                nombrePropietario,
+                propietario:{
+                    nombreCompleto:nombreCompleto,
+                    email:email,
+                    idPropietario:idPropietario,
+                },
                 _id: null
             };
             return this.dao.createPropertie(newPropertie);
-        }
+    }
+
+    
+    public updatePropertie(id:string, titulo: string, precio: number, descripcion: string, 
+        tipo: string, area: string, habitaciones: number, banios: number, 
+        garage: string, terraza: string, direccion: string, estado:string, ){
+         
+            const updPropertie = {
+                titulo,
+                precio,
+                descripcion,
+                imagen: '',
+                tipo,
+                area,
+                habitaciones,
+                banios,
+                estado:estado,
+                garage,
+                terraza,
+                direccion
+            };
+            return this.dao.updatePropertie(id,updPropertie);
+    }
+        
 }

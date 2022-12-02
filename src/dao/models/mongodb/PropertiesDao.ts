@@ -15,4 +15,8 @@ export class PropertiesDao extends AbstractDao<IPropertie> {
         const {_id, ...newPropertie } = propertie;
         return this.createOne(newPropertie);
     }
+    updatePropertie(id:string, propertie:IPropertie){
+        const {_id, ...updPropertie } = propertie;
+        return this.update(id,updPropertie);
+    }
 }
