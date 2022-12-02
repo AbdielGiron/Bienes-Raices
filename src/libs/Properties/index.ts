@@ -45,7 +45,6 @@ export class Properties {
     public updatePropertie(id:string, titulo: string, precio: number, descripcion: string, 
         tipo: string, area: string, habitaciones: number, banios: number, 
         garage: string, terraza: string, direccion: string, estado:string, ){
-         
             const updPropertie = {
                 titulo,
                 precio,
@@ -61,6 +60,13 @@ export class Properties {
                 direccion
             };
             return this.dao.updatePropertie(id,updPropertie);
+    }
+
+    public deletePropertie(id:string){
+            const delPropertie = {
+                estado: "Eliminado"
+            };
+            return this.dao.deletePropertie(id,delPropertie);
     }
         
 }
