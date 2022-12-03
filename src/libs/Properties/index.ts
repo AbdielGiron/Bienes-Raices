@@ -72,7 +72,12 @@ export class Properties {
     public getAllProperties() {
         return this.dao.getProperties()
     }
+
     public getPropertieByIndex(index: string) {
         return this.dao.getPropertieById(index);
     }
+
+    public getAllPropertiesFromUser(id:string) {
+        return this.dao.getPropertieByUser(id);
+      }
 }

@@ -1,6 +1,6 @@
 import { IPropertie } from "../entities/Propertie";
 import { AbstractDao } from "./AbstractDao";
-import { Db } from "mongodb";
+import {Db, ObjectId} from "mongodb";
 
 export class PropertiesDao extends AbstractDao<IPropertie> {
     public constructor(db: Db) {
@@ -31,6 +31,18 @@ export class PropertiesDao extends AbstractDao<IPropertie> {
     public async getPropertieById( identifier : string ){
         try{
           const result = await super.findByID(identifier);
+          return result;
+        } catch( ex: unknown) {
+          console.log("Propertie mongodb:", (ex as Error).message);
+          throw ex;
+        }
+      }
+
+      public getPropertieByUser(id:string){
+        // return super.findByFilter({precio: new Number(id)},{sort:{'type': -1}});
+
+        try{
+          const result = super.findByFilter({'propietario.idPropietario': new ObjectId(id)},{sort:{'type': -1}});
           return result;
         } catch( ex: unknown) {
           console.log("Propertie mongodb:", (ex as Error).message);

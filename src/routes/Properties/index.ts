@@ -58,7 +58,17 @@ router.get('/byindex/:index', async (req, res) => {
         res.json(await properties.getPropertieByIndex(id));
     } catch (error) {
         console.log("Error", error);
-        res.status(500).json({ 'msg': 'Error al obtener Registro' });
+        res.status(500).json({ error: 'Error al obtener Registro' });
+    }
+});
+
+router.get('/byuser/:userid', async (req, res) => {
+    try {
+        const { userid: id } = req.params;
+        res.json(await properties.getAllPropertiesFromUser(id));
+    } catch (error) {
+        console.log("Error", error);
+        res.status(500).json({ error: 'Error al obtener Registros' });
     }
 });
 
