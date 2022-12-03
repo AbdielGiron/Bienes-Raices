@@ -3,24 +3,38 @@ import { AbstractDao } from "./AbstractDao";
 import { Db } from "mongodb";
 
 export class PropertiesDao extends AbstractDao<IPropertie> {
-    public constructor(db : Db) {
+    public constructor(db: Db) {
         super('properties', db);
     }
 
-    updatePropertieDate(id:string){
-        return this.updateRaw(id, {$set: {fechaPublic: new Date()} });
+    public getProperties() {
+        return super.findAll()
+      }
+
+    updatePropertieDate(id: string) {
+        return this.updateRaw(id, { $set: { fechaPublic: new Date() } });
     }
 
-    createPropertie(propertie:IPropertie){
-        const {_id, ...newPropertie } = propertie;
+    createPropertie(propertie: IPropertie) {
+        const { _id, ...newPropertie } = propertie;
         return this.createOne(newPropertie);
     }
-    updatePropertie(id:string, propertie:IPropertie){
-        const {_id, ...updPropertie } = propertie;
-        return this.update(id,updPropertie);
+    updatePropertie(id: string, propertie: IPropertie) {
+        const { _id, ...updPropertie } = propertie;
+        return this.update(id, updPropertie);
     }
-    deletePropertie(id:string, propertie:IPropertie){
-        const {_id, ...delPropertie } = propertie;
-        return this.update(id,delPropertie);
+    deletePropertie(id: string, propertie: IPropertie) {
+        const { _id, ...delPropertie } = propertie;
+        return this.update(id, delPropertie);
     }
+
+    public async getPropertieById( identifier : string ){
+        try{
+          const result = await super.findByID(identifier);
+          return result;
+        } catch( ex: unknown) {
+          console.log("Propertie mongodb:", (ex as Error).message);
+          throw ex;
+        }
+      }
 }
