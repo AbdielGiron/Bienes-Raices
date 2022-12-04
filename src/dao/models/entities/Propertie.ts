@@ -1,6 +1,3 @@
-import { ObjectId } from "mongodb";
-
-
 export interface IPropertie {
     titulo: string;
     precio: number;
@@ -15,10 +12,6 @@ export interface IPropertie {
     garage: string;
     terraza: string;
     direccion: string;
-    propietario: [
-        nombreCompleto: string,
-        email: string,
-        idPropietario: {type:ObjectId,ref:"IUser"}
-    ];
+    userId?: unknown;
     _id?: unknown;
 }

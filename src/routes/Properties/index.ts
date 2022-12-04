@@ -1,15 +1,18 @@
 import express from 'express';
 const router = express.Router();
 import { Properties } from '@server/libs/Properties';
+import { WithUserRequest } from '@routes/index';
+
 
 const properties = new Properties();
 
 router.post('/create', async (req, res) => {
     try {
+        // const {_id: userId } = req.user;
         const { titulo, precio, descripcion, tipo, area, habitaciones,
-            banios, garage, terraza, direccion, nombreCompleto, email, idPropietario } = req.body;
+            banios, garage, terraza, direccion, userId} = req.body;
         const result = await properties.createPropertie(titulo, precio, descripcion, tipo,
-            area, habitaciones, banios, garage, terraza, direccion, nombreCompleto, email, idPropietario);
+            area, habitaciones, banios, garage, terraza, direccion,userId);
         console.log("CREATE:", result);
         res.status(200).json({ "msg": "Propiedad creada correctamente" });
     } catch (ex) {
@@ -62,7 +65,7 @@ router.get('/byindex/:index', async (req, res) => {
     }
 });
 
-router.get('/byuser/:userid', async (req, res) => {
+router.get('/byuser/:userid', async (req , res) => {
     try {
         const { userid: id } = req.params;
         res.json(await properties.getAllPropertiesFromUser(id));
