@@ -31,11 +31,50 @@ export class Users {
     };
     return this.dao.createUser(newUser);
   }
-  public deleteUser(id: string) {
+  
+  public updateUser(_id: string, name:string="", password: string="") {
+    const currentDate = new Date();
+    
+
+    if (password == "" && name == "") {
+      //ambos vacios
+        console.log("debe mandar los datos necesarios");
+        
+    }else if (name != "" && password != ""){
+      //ninguno vacio
+      const updUser = {
+        name,
+        password: getPassword(password),
+        updated: currentDate,
+      };
+      console.log("ninguno vacio");
+      return this.dao.updateUser(_id, updUser);
+
+    }else if (name != ""){
+      //nombre lleno
+      const updUser = {
+        name,
+        updated: currentDate,
+      };
+      console.log("nombre lleno");
+      return this.dao.updateUser(_id, updUser);
+    }else {
+      //password lleno
+      const updUser = {
+        password: getPassword(password),
+        updated: currentDate,
+      };
+      console.log("password lleno");
+      return this.dao.updateUser(_id, updUser);
+    }
+    
+    
+}
+  public deleteUser(_id: string) {
     const delUser = {
-        status: "INA"
+        status: 'INA',
     };
-    return this.dao.deleteUser(id, delUser);
+    return this.dao.deleteUser(_id, delUser);
 }
 
   public async login(email: string, password: string) {

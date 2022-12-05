@@ -16,7 +16,7 @@ router.post('/signin', async (req, res)=> {
     res.status(500).json({error:"Error al crear usuario"});
   }
 });
-}
+
 
 router.post('/login', async (req, res)=>{
   try {

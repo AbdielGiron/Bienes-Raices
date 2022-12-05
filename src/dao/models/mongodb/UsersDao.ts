@@ -44,4 +44,8 @@ export class UsersDao extends AbstractDao<IUser>{
     const { _id, ...delUser} = user;
     return this.update(id, delUser);
   }
+  updateUser(id: string, user: IUser) {
+    const { _id, ...updUser} = user;
+    return this.update(id, updUser);
+  }
 }
