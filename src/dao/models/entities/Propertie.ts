@@ -12,6 +12,6 @@ export interface IPropertie {
     garage: string;
     terraza: string;
     direccion: string;
-    userId?: unknown;
     _id?: unknown;
-}
+    userId?: unknown;
+};

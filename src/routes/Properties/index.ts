@@ -1,18 +1,17 @@
 import express from 'express';
 const router = express.Router();
-import { Properties } from '@server/libs/Properties';
+import { IPropertie, Properties } from '@server/libs/Properties';
 import { WithUserRequest } from '@routes/index';
 
 
 const properties = new Properties();
 
-router.post('/create', async (req, res) => {
+router.post('/create', async (req: WithUserRequest, res) => {
     try {
-        // const {_id: userId } = req.user;
-        const { titulo, precio, descripcion, tipo, area, habitaciones,
-            banios, garage, terraza, direccion, userId} = req.body;
-        const result = await properties.createPropertie(titulo, precio, descripcion, tipo,
-            area, habitaciones, banios, garage, terraza, direccion,userId);
+        const { _id: userId } = req.user;
+        const newPropertie = req.body as unknown as IPropertie;
+
+        const result = await properties.createPropertie(newPropertie, userId);
         console.log("CREATE:", result);
         res.status(200).json({ "msg": "Propiedad creada correctamente" });
     } catch (ex) {
@@ -21,7 +20,7 @@ router.post('/create', async (req, res) => {
     }
 });
 
-router.put('/update', async (req, res) => {
+router.put('/update', async (req: WithUserRequest, res) => {
     try {
         const { id, titulo, precio, descripcion, tipo, area, habitaciones,
             banios, garage, terraza, direccion, estado } = req.body;
@@ -34,7 +33,7 @@ router.put('/update', async (req, res) => {
         res.status(500).json({ error: "Error al actualizar propiedad" });
     }
 });
-router.put('/delete', async (req, res) => {
+router.put('/delete', async (req: WithUserRequest, res) => {
     try {
         const { id } = req.body;
         const result = await properties.deletePropertie(id);
@@ -65,7 +64,7 @@ router.get('/byindex/:index', async (req, res) => {
     }
 });
 
-router.get('/byuser/:userid', async (req , res) => {
+router.get('/byuser/:userid', async (req, res) => {
     try {
         const { userid: id } = req.params;
         res.json(await properties.getAllPropertiesFromUser(id));

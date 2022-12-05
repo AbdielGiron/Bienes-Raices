@@ -1,6 +1,21 @@
 import { getConnection } from "@models/mongodb/MongoDBConn";
 import { PropertiesDao } from "@server/dao/models/mongodb/PropertiesDao";
 
+export interface IPropertie {
+    titulo: string;
+    precio: number;
+    descripcion: string;
+    imagen?: string;
+    fechaPublic?: Date;
+    tipo: string[]; //
+    area: string;
+    habitaciones: number;
+    banios: number;
+    estado: string[]; //'DISP' | 'OCUP' | 'NDIS';
+    garage: string;
+    terraza: string;
+    direccion: string;
+};
 export class Properties {
     private dao: PropertiesDao;
     public constructor() {
@@ -11,28 +26,38 @@ export class Properties {
             .catch(ex => console.log(ex));
     }
 
-    public createPropertie(titulo: string, precio: number, descripcion: string,
-        tipo: string, area: string, habitaciones: number, banios: number,
-        garage: string, terraza: string, direccion: string, userId: string) {
-        const currentDate = new Date();
-        const newPropertie = {
-            titulo,
+    public createPropertie(propertie: IPropertie, userId: string) {
+
+        const { titulo,
             precio,
             descripcion,
-            imagen: '',
-            fechaPublic: currentDate,
+            imagen,
+            fechaPublic,
             tipo,
             area,
             habitaciones,
             banios,
-            estado: 'Disponible',
+            estado,
             garage,
             terraza,
-            direccion,
-            userId,
-            _id: null
-        };
-        return this.dao.createPropertie(newPropertie);
+            direccion
+        } = propertie;
+
+        return this.dao.createPropertie({
+            titulo,
+            precio,
+            descripcion,
+            imagen: '',
+            fechaPublic: new Date(),
+            tipo,
+            area,
+            habitaciones,
+            banios,
+            estado: ['Disponible'],
+            garage,
+            terraza,
+            direccion 
+        }, userId);
     }
 
 
@@ -71,7 +96,7 @@ export class Properties {
         return this.dao.getPropertieById(index);
     }
 
-    public getAllPropertiesFromUser(id:string) {
+    public getAllPropertiesFromUser(id: string) {
         return this.dao.getPropertieByUser(id);
-      }
+    }
 }

@@ -11,7 +11,7 @@ const router  = Router();
 // http://localhost:3001/cashflow/byindex/1
 router.use('/cashflow', apiKeyMW, jwtValidator, CashFlowRouter);
 router.use('/security', apiKeyMW, UsersRouter);
-router.use('/properties', apiKeyMW, PropertiesRouter);
+router.use('/properties', apiKeyMW, jwtValidator, PropertiesRouter);
 
 
 export default router;
