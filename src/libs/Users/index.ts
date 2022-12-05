@@ -31,6 +31,12 @@ export class Users {
     };
     return this.dao.createUser(newUser);
   }
+  public deleteUser(id: string) {
+    const delUser = {
+        status: "INA"
+    };
+    return this.dao.deleteUser(id, delUser);
+}
 
   public async login(email: string, password: string) {
     try {
@@ -58,6 +64,9 @@ export class Users {
       console.log("LOGIN:" , err);
       throw err;
     }
+  }
+  public getUserbyIndex(id :string){
+    return this.dao.getUserById(id);
   }
 
   public async assignRoles(id: string, role: string) {

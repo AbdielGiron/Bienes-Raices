@@ -2,6 +2,8 @@ import express from 'express';
 const router = express.Router();
 import {Users} from  '@libs/Users';
 
+
+
 const users = new Users();
 router.post('/signin', async (req, res)=> {
   try {
@@ -14,6 +16,7 @@ router.post('/signin', async (req, res)=> {
     res.status(500).json({error:"Error al crear usuario"});
   }
 });
+}
 
 router.post('/login', async (req, res)=>{
   try {
@@ -26,6 +29,7 @@ router.post('/login', async (req, res)=>{
     res.status(403).json({error:"Credenciales no son Válidas"});
   }
 });
+
 
 router.post('/addrole/:id', async (req, res)=>{
   try {

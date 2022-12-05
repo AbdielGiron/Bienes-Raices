@@ -26,9 +26,22 @@ export class UsersDao extends AbstractDao<IUser>{
       {$addToSet: {roles: role}}
     );
   }
+   public async getUserById(id:string){
+    try {
+      const result = await super.findByID(id);
+      return result;
+    } catch (ex: unknown) {
+      console.log("user mongodb:", (ex as Error).message);
+      throw ex;
+    }
+   }
 
   createUser(user:IUser){
     const {_id, ...newUser} = user;
     return this.createOne(newUser);
+  }
+  deleteUser(id: string, user: IUser) {
+    const { _id, ...delUser} = user;
+    return this.update(id, delUser);
   }
 }
