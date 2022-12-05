@@ -1,5 +1,6 @@
 import { getConnection } from "@models/mongodb/MongoDBConn";
 import { PropertiesDao } from "@server/dao/models/mongodb/PropertiesDao";
+import MailService from "../Contacto";
 
 export interface IPropertie {
     titulo: string;
@@ -15,7 +16,7 @@ export interface IPropertie {
     garage: string;
     terraza: string;
     direccion: string;
-};
+}
 export class Properties {
     private dao: PropertiesDao;
     public constructor() {
@@ -56,7 +57,7 @@ export class Properties {
             estado: ['Disponible'],
             garage,
             terraza,
-            direccion 
+            direccion
         }, userId);
     }
 
@@ -92,7 +93,7 @@ export class Properties {
         return this.dao.getProperties()
     }
 
-    public getPropertieByIndex(index: string) {
+    public async getPropertieByIndex(index: string) {
         return this.dao.getPropertieById(index);
     }
 
