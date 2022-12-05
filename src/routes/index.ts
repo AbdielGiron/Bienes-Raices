@@ -4,6 +4,7 @@ import CashFlowRouter  from './CashFlows';
 import UsersRouter from './Users';
 import UserPRouter from './UserProfile';
 import PropertiesRouter  from './Properties';
+import AllPropertiesRouter  from './Allproperties';
 import apiKeyMW from '@middleware/apiKeyHeaderValidator';
 import { jwtValidator } from '@server/middleware/jwtBeaereValidator';
 
@@ -14,6 +15,8 @@ router.use('/cashflow', apiKeyMW, jwtValidator, CashFlowRouter);
 router.use('/security', apiKeyMW, UsersRouter);
 router.use('/user', apiKeyMW, jwtValidator, UserPRouter);
 router.use('/properties', apiKeyMW, jwtValidator, PropertiesRouter);
+
+router.use('/catalog', apiKeyMW, AllPropertiesRouter);
 
 
 
